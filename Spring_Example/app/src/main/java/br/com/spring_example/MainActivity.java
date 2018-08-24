@@ -24,14 +24,16 @@ public class MainActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
-            List<Usuario> usuarios = new HttpRequestUsuario().execute().get();
+            final List<Usuario> usuarios = new HttpRequestUsuario().execute().get();
             ListView listViewUsuarios = findViewById(R.id.listViewUsuario);
             listViewUsuarios.setAdapter(new UsuarioListAdapter(getApplicationContext(), usuarios));
 
             listViewUsuarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                    intent.putExtra("usuario", usuarios.get(position));
+                    startActivity(intent);
                 }
             });
 

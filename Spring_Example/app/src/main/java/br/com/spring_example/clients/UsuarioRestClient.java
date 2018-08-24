@@ -85,16 +85,21 @@ public class UsuarioRestClient {
         try {
             Map<String, String> values = new HashMap<>();
             values.put("id", String.valueOf(usuario.getId()));
-            values.put("name", usuario.getNome());
+            values.put("nome", usuario.getNome());
             values.put("email", usuario.getEmail());
 
             JSONObject jsonObject = new JSONObject();
+
+            jsonObject.put("id", usuario.getId());
+            jsonObject.put("nome", usuario.getNome());
+            jsonObject.put("email", usuario.getEmail());
+
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
 
             HttpEntity<String> entity = new HttpEntity<>(jsonObject.toString(), headers);
 
-            restTemplate.put(BASE_URL + "update", entity);
+            restTemplate.put(BASE_URL + "atualizar", entity);
 
             return true;
         } catch (Exception e) {
